@@ -79,4 +79,5 @@ DISTFILES += \
     images/vor/vor-ring.png \
     images/vor/vor-to-from-flag.png \
     images/vsi/vsi-plate.png \
-    images/vsi/vsi-plate1.png
+    images/vsi/vsi-plate1.png \
+    Screenshot.png
