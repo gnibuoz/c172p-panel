@@ -198,13 +198,13 @@
 				<name>engine-rpm</name>
 				<type>double</type>
 				<format>engine-rpm=%f</format>
-				<node>/engines/engine/rpm</node>
+				<node>/engines/active-engine/rpm</node>
 			</chunk>
 			<chunk>
 				<name>engine-running</name>
 				<type>bool</type>
 				<format>engine-running=%d</format>
-				<node>/engines/engine/running</node>
+				<node>/engines/active-engine/running</node>
 			</chunk>
 			<chunk>
 				<name>comm-power-button</name>
