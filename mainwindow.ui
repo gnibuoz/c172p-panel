@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(86, 86, 86);</string>
+    <string notr="true">background-color: rgb(60, 60, 70);</string>
    </property>
    <widget class="AirSpeedIndicator" name="asi" native="true">
     <property name="geometry">

@@ -15,7 +15,7 @@ AttitudeIndicator::AttitudeIndicator(QWidget *parent)
       k_offset(this, IMG_K_AI_OFFSET)
 {
     load_img();
-    k_offset.setGeometry(125, 240, 50, 50);
+    k_offset.setGeometry(10, 240, 50, 50);
     QObject::connect(&k_offset, SIGNAL(rotated(Knob::direcrion)),
                      this, SLOT(update_offset(Knob::direcrion)));
 }
