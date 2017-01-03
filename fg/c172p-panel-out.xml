@@ -6,6 +6,9 @@
 			*******************OUTPUT************************
 			Output Cessna 172P instruments data to UDP port 5500.
 			CLI option: --generic=socket,out,20,ip-address,5500,udp,c172p-panel
+
+			*NOTICE*: every time this file is modified, run header-gen.sh
+					and rebuild the whole program.
 		]]>
 	</comment>
 

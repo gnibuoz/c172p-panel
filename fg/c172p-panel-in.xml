@@ -5,7 +5,10 @@
 		<![CDATA[
 			*****************INPUT*******************************
 			Input Cessna 172P instruments data to UDP port 5501.
-			CLI option: --generic=socket,in,30,ip-address,5501,udp,c172p-panel
+			CLI option: --generic=socket,in,20,ip-address,5501,udp,c172p-panel
+
+			*NOTICE*: every time this file is modified, run 'header-gen.sh'
+					and rebuild the whole program.
 		]]>
 	</comment>
 
