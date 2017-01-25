@@ -1,6 +1,7 @@
 #include "fgdata.h"
 #include "logutil.h"
 #include <QMutexLocker>
+#include <QStringList>
 
 FGData::FGData()
     : data_map()
