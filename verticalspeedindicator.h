@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QWidget>
 #include <QPoint>
-#include <QImage>
+#include <QPixmap>
 #include <QMutex>
 #include "fgdata.h"
 
@@ -24,8 +24,8 @@ private:
 
     static QMutex img_lock;
     static bool loaded;
-    static const QImage * const img_plate;
-    static const QImage * const img_frame;
+    static QPixmap * img_plate;
+    static QPixmap * img_frame;
 };
 
 #endif // VERTICALSPEEDINDICATOR_H

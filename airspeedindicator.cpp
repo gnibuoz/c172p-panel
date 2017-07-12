@@ -27,8 +27,8 @@ void AirSpeedIndicator::paintEvent(QPaintEvent *)
     painter.translate(QPoint(w / 2, h / 2));
 
     // draw plate and frame
-    painter.drawImage(-w / 2, -h / 2, *img_plate);
-    painter.drawImage(-w / 2, -h / 2, *img_frame);
+    painter.drawPixmap(-w / 2, -h / 2, *img_plate);
+    painter.drawPixmap(-w / 2, -h / 2, *img_frame);
 
     // draw needle
     painter.rotate(scale_angle() - 90);
@@ -58,22 +58,18 @@ double AirSpeedIndicator::scale_angle()
 
 void AirSpeedIndicator::load_img()
 {
-    QImage *p = NULL;
-
     QMutexLocker l(&img_lock);
     if (loaded) {
         return;
     }
 
-    p = const_cast<QImage *>(img_frame);
-    *p = QImage(Config::img_prefix + IMG_ASI_FRAME);
-    if (p->isNull()) {
+    img_frame = new QPixmap(Config::img_prefix + IMG_ASI_FRAME);
+    if (img_frame->isNull()) {
         LOGE("Failed to load asi frame");
     }
 
-    p = const_cast<QImage *>(img_plate);
-    *p = QImage(Config::img_prefix + IMG_ASI_PLATE);
-    if (p->isNull()) {
+    img_plate = new QPixmap(Config::img_prefix + IMG_ASI_PLATE);
+    if (img_plate->isNull()) {
         LOGE("Failed to load asi plate");
     }
 
@@ -86,8 +82,8 @@ const QPoint AirSpeedIndicator::needle[4] = {QPoint(-5, 0),
                                              QPoint(0, -5)};
 QMutex AirSpeedIndicator::img_lock;
 bool AirSpeedIndicator::loaded = false;
-const QImage * const AirSpeedIndicator::img_plate = new QImage();
-const QImage * const AirSpeedIndicator::img_frame = new QImage();
+QPixmap * AirSpeedIndicator::img_plate = NULL; 
+QPixmap * AirSpeedIndicator::img_frame = NULL;
 
 // Map air speed to angle.
 //
@@ -100,7 +96,7 @@ const QImage * const AirSpeedIndicator::img_frame = new QImage();
 //
 const double AirSpeedIndicator::angle_scale_map[20][2] = {
     {  0,   1}, // 0-9
-    {  2,   5}, // 10-10
+    {  2,   5}, // 10-19
     {  6,  14}, // 20-29
     { 15,  39}, // 30-39
     { 40,  65}, // 40-49

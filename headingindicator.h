@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QWidget>
-#include <QImage>
+#include <QPixmap>
 #include <QPoint>
 #include <QMutex>
 #include "fgdata.h"
@@ -32,9 +32,9 @@ private:
 
     static QMutex img_lock;
     static bool loaded;
-    static const QImage * const img_plate;
-    static const QImage * const img_plane;
-    static const QImage * const img_frame;
+    static QPixmap * img_plate;
+    static QPixmap * img_plane;
+    static QPixmap * img_frame;
 
     static const QPoint bug[5];
 };

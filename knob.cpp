@@ -43,5 +43,5 @@ void Knob::paintEvent(QPaintEvent *)
     // draw knob
     painter.translate(w / 2, h / 2);
     painter.rotate(angle);
-    painter.drawImage(-w / 2, -h / 2, img_knob);
+    painter.drawPixmap(-w / 2, -h / 2, img_knob);
 }

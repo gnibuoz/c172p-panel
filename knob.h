@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QWidget>
 #include <QWheelEvent>
-#include <QImage>
+#include <QPixmap>
 #include <QString>
 
 class Knob : public QWidget
@@ -21,7 +21,7 @@ signals:
 
 private:
     int angle;
-    QImage img_knob;
+    QPixmap img_knob;
 };
 
 #endif // KNOB_H

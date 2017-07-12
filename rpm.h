@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QWidget>
 #include <QMutex>
-#include <QImage>
+#include <QPixmap>
 #include "fgdata.h"
 
 class RPM : public QWidget, public FGDataConsumer
@@ -24,7 +24,7 @@ private:
 
     static QMutex img_lock;
     static bool loaded;
-    static const QImage * const img_plate;
+    static QPixmap * img_plate;
 };
 
 #endif // RPM_H

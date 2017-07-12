@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QWidget>
 #include <QPoint>
-#include <QImage>
+#include <QPixmap>
 #include <QMutex>
 #include "fgdata.h"
 #include "knob.h"
@@ -30,10 +30,10 @@ private:
 
     static QMutex img_lock;
     static bool loaded;
-    static const QImage * const img_horizon2;
-    static const QImage * const img_horizon3;
-    static const QImage * const img_plane;
-    static const QImage * const img_frame;
+    static QPixmap * img_horizon2;
+    static QPixmap * img_horizon3;
+    static QPixmap * img_plane;
+    static QPixmap * img_frame;
 };
 
 #endif // ATTITUDEINDICATOR_H

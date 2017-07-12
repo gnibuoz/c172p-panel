@@ -27,8 +27,8 @@ void VerticalSpeedIndicator::paintEvent(QPaintEvent *)
     painter.translate(QPoint(w / 2, h / 2));
 
     // draw plate and frame
-    painter.drawImage(-w / 2, -h / 2, *img_plate);
-    painter.drawImage(-w / 2, -h / 2, *img_frame);
+    painter.drawPixmap(-w / 2, -h / 2, *img_plate);
+    painter.drawPixmap(-w / 2, -h / 2, *img_frame);
 
     // draw needle
     painter.rotate(vs_to_angle());
@@ -50,22 +50,18 @@ double VerticalSpeedIndicator::vs_to_angle()
 
 void VerticalSpeedIndicator::load_img()
 {
-    QImage *p = NULL;
-
     QMutexLocker l(&img_lock);
     if (loaded) {
         return;
     }
 
-    p = const_cast<QImage *>(img_frame);
-    *p = QImage(Config::img_prefix + IMG_VSI_FRAME);
-    if (p->isNull()) {
+    img_frame = new QPixmap(Config::img_prefix + IMG_VSI_FRAME);
+    if (img_frame->isNull()) {
         LOGE("Failed to load vsi frame");
     }
 
-    p = const_cast<QImage *>(img_plate);
-    *p = QImage(Config::img_prefix + IMG_VSI_PLATE);
-    if (p->isNull()) {
+    img_plate = new QPixmap(Config::img_prefix + IMG_VSI_PLATE);
+    if (img_plate->isNull()) {
         LOGE("Failed to load vsi plate");
     }
 
@@ -78,5 +74,5 @@ const QPoint VerticalSpeedIndicator::needle[4] = {QPoint(-5, 0),
                                              QPoint(0, -5)};
 QMutex VerticalSpeedIndicator::img_lock;
 bool VerticalSpeedIndicator::loaded = false;
-const QImage * const VerticalSpeedIndicator::img_plate = new QImage();
-const QImage * const VerticalSpeedIndicator::img_frame = new QImage();
+QPixmap * VerticalSpeedIndicator::img_plate = NULL;
+QPixmap * VerticalSpeedIndicator::img_frame = NULL;

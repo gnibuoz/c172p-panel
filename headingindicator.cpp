@@ -46,7 +46,7 @@ void HeadingIndicator::paintEvent(QPaintEvent *)
     // draw plate
     painter.save();
     painter.rotate(-heading_deg);
-    painter.drawImage(-w / 2, -h / 2, *img_plate);
+    painter.drawPixmap(-w / 2, -h / 2, *img_plate);
     painter.restore();
 
     // draw heading bug
@@ -56,8 +56,8 @@ void HeadingIndicator::paintEvent(QPaintEvent *)
     painter.restore();
 
     // draw plane and frame
-    painter.drawImage(-w / 2, -h / 2, *img_plane);
-    painter.drawImage(-w / 2, -h / 2, *img_frame);
+    painter.drawPixmap(-w / 2, -h / 2, *img_plane);
+    painter.drawPixmap(-w / 2, -h / 2, *img_frame);
 }
 
 void HeadingIndicator::update_heading(Knob::direcrion d)
@@ -94,28 +94,23 @@ void HeadingIndicator::update_bug(Knob::direcrion d)
 
 void HeadingIndicator::load_img()
 {
-    QImage *p = NULL;
-
     QMutexLocker l(&img_lock);
     if (loaded) {
         return;
     }
 
-    p = const_cast<QImage *>(img_plate);
-    *p = QImage(Config::img_prefix + IMG_HI_PLATE);
-    if (p->isNull()) {
+    img_plate = new QPixmap(Config::img_prefix + IMG_HI_PLATE);
+    if (img_plate->isNull()) {
         LOGE("Failed to load hi plate");
     }
 
-    p = const_cast<QImage *>(img_plane);
-    *p = QImage(Config::img_prefix + IMG_HI_PLANE);
-    if (p->isNull()) {
+    img_plane = new QPixmap(Config::img_prefix + IMG_HI_PLANE);
+    if (img_plane->isNull()) {
         LOGE("Failed to load hi frame");
     }
 
-    p = const_cast<QImage *>(img_frame);
-    *p = QImage(Config::img_prefix + IMG_HI_FRAME);
-    if (p->isNull()) {
+    img_frame = new QPixmap(Config::img_prefix + IMG_HI_FRAME);
+    if (img_frame->isNull()) {
         LOGE("Failed to load hi frame");
     }
 
@@ -124,9 +119,9 @@ void HeadingIndicator::load_img()
 
 QMutex HeadingIndicator::img_lock;
 bool HeadingIndicator::loaded = false;
-const QImage * const HeadingIndicator::img_plate = new QImage();
-const QImage * const HeadingIndicator::img_plane = new QImage();
-const QImage * const HeadingIndicator::img_frame = new QImage();
+QPixmap * HeadingIndicator::img_plate = NULL;
+QPixmap * HeadingIndicator::img_plane = NULL;
+QPixmap * HeadingIndicator::img_frame = NULL;
 const QPoint HeadingIndicator::bug[5] = {
     QPoint(-10, -110),
     QPoint(10, -110),
