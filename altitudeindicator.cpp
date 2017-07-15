@@ -40,12 +40,12 @@ void AltitudeIndicator::paintEvent(QPaintEvent *)
     // draw inhg
     painter.save();
     painter.rotate(angle_inhg());
-    painter.drawImage(-w / 2, -h / 2, *img_inhg);
+    painter.drawPixmap(-w / 2, -h / 2, *img_inhg);
     painter.restore();
 
     // draw plate and frame
-    painter.drawImage(-w / 2, -h / 2, *img_plate);
-    painter.drawImage(-w / 2, -h / 2, *img_frame);
+    painter.drawPixmap(-w / 2, -h / 2, *img_plate);
+    painter.drawPixmap(-w / 2, -h / 2, *img_frame);
 
     // draw needle for 10000-feet
     painter.save();
@@ -108,28 +108,23 @@ double AltitudeIndicator::angle_100()
 
 void AltitudeIndicator::load_img()
 {
-    QImage *p = NULL;
-
     QMutexLocker l(&img_lock);
     if (loaded) {
         return;
     }
 
-    p = const_cast<QImage *>(img_inhg);
-    *p = QImage(Config::img_prefix + IMG_ALT_INHG);
-    if (p->isNull()) {
+    img_inhg = new QPixmap(Config::img_prefix + IMG_ALT_INHG);
+    if (img_inhg->isNull()) {
         LOGE("Failed to load alt inhg");
     }
 
-    p = const_cast<QImage *>(img_frame);
-    *p = QImage(Config::img_prefix + IMG_ALT_FRAME);
-    if (p->isNull()) {
+    img_frame = new QPixmap(Config::img_prefix + IMG_ALT_FRAME);
+    if (img_frame->isNull()) {
         LOGE("Failed to load alt frame");
     }
 
-    p = const_cast<QImage *>(img_plate);
-    *p = QImage(Config::img_prefix + IMG_ALT_PLATE);
-    if (p->isNull()) {
+    img_plate = new QPixmap(Config::img_prefix + IMG_ALT_PLATE);
+    if (img_plate->isNull()) {
         LOGE("Failed to load alt plate");
     }
 
@@ -138,9 +133,9 @@ void AltitudeIndicator::load_img()
 
 QMutex AltitudeIndicator::img_lock;
 bool AltitudeIndicator::loaded = false;
-const QImage * const AltitudeIndicator::img_inhg = new QImage();
-const QImage * const AltitudeIndicator::img_plate = new QImage();
-const QImage * const AltitudeIndicator::img_frame = new QImage();
+QPixmap * AltitudeIndicator::img_inhg = NULL;
+QPixmap * AltitudeIndicator::img_plate = NULL;
+QPixmap * AltitudeIndicator::img_frame = NULL;
 const QPoint AltitudeIndicator::needle10000[NEEDLE_10000_POINTS] = {
     QPoint(-3, -3),
     QPoint(28, -10),

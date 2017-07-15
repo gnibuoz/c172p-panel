@@ -53,26 +53,26 @@ void NavigationIndicator::paintEvent(QPaintEvent *)
 
     // draw gs flag
     if (has_gs && gs_in_range) {
-        painter.drawImage(-85, -25, *img_gs_flag);
+        painter.drawPixmap(-85, -25, *img_gs_flag);
     } else {
-        painter.drawImage(-105, -25, *img_gs_flag);
+        painter.drawPixmap(-105, -25, *img_gs_flag);
     }
 
     // draw to from flag
     if (in_range) {
         if (to_flag) {
-            painter.drawImage(18, -30, *img_to_from_flag);
+            painter.drawPixmap(18, -30, *img_to_from_flag);
         } else if (from_flag) {
-            painter.drawImage(18, -70, *img_to_from_flag);
+            painter.drawPixmap(18, -70, *img_to_from_flag);
         } else {
-            painter.drawImage(18, -50, *img_to_from_flag);
+            painter.drawPixmap(18, -50, *img_to_from_flag);
         }
     } else {
-        painter.drawImage(18, -50, *img_to_from_flag);
+        painter.drawPixmap(18, -50, *img_to_from_flag);
     }
 
     // draw plate
-    painter.drawImage(-w / 2, -h / 2, *img_plate);
+    painter.drawPixmap(-w / 2, -h / 2, *img_plate);
 
     // TODO: draw heading needle
     painter.save();
@@ -91,49 +91,42 @@ void NavigationIndicator::paintEvent(QPaintEvent *)
     // draw ring
     painter.save();
     painter.rotate(-radial_selected);
-    painter.drawImage(-w / 2, -h / 2, *img_ring);
+    painter.drawPixmap(-w / 2, -h / 2, *img_ring);
     painter.restore();
 
     // draw frame
-    painter.drawImage(-w / 2, -h / 2, *img_frame);
+    painter.drawPixmap(-w / 2, -h / 2, *img_frame);
 }
 
 void NavigationIndicator::load_img()
 {
-    QImage *p = NULL;
-
     QMutexLocker l(&img_lock);
     if (loaded) {
         return;
     }
 
-    p = const_cast<QImage *>(img_frame);
-    *p = QImage(Config::img_prefix + IMG_NAV_FRAME);
-    if (p->isNull()) {
+    img_frame = new QPixmap(Config::img_prefix + IMG_NAV_FRAME);
+    if (img_frame->isNull()) {
         LOGE("Failed to load vor frame");
     }
 
-    p = const_cast<QImage *>(img_ring);
-    *p = QImage(Config::img_prefix + IMG_NAV_RING);
-    if (p->isNull()) {
+    img_ring = new QPixmap(Config::img_prefix + IMG_NAV_RING);
+    if (img_ring->isNull()) {
         LOGE("Failed to load vor ring");
     }
 
-    p = const_cast<QImage *>(img_plate);
-    *p = QImage(Config::img_prefix + IMG_NAV_PLATE);
-    if (p->isNull()) {
+    img_plate = new QPixmap(Config::img_prefix + IMG_NAV_PLATE);
+    if (img_plate->isNull()) {
         LOGE("Failed to load vor plate");
     }
 
-    p = const_cast<QImage *>(img_gs_flag);
-    *p = QImage(Config::img_prefix + IMG_NAV_GS_FLAG);
-    if (p->isNull()) {
+    img_gs_flag = new QPixmap(Config::img_prefix + IMG_NAV_GS_FLAG);
+    if (img_gs_flag->isNull()) {
         LOGE("Failed to load vor gs flag");
     }
 
-    p = const_cast<QImage *>(img_to_from_flag);
-    *p = QImage(Config::img_prefix + IMG_NAV_TO_FROM_FLAG);
-    if (p->isNull()) {
+    img_to_from_flag = new QPixmap(Config::img_prefix + IMG_NAV_TO_FROM_FLAG);
+    if (img_to_from_flag->isNull()) {
         LOGE("Failed to load vor to from flag");
     }
 
@@ -159,11 +152,11 @@ void NavigationIndicator::update_obs(Knob::direcrion d)
 
 QMutex NavigationIndicator::img_lock;
 bool NavigationIndicator::loaded = false;
-const QImage * const NavigationIndicator::img_ring = new QImage();
-const QImage * const NavigationIndicator::img_frame = new QImage();
-const QImage * const NavigationIndicator::img_plate = new QImage();
-const QImage * const NavigationIndicator::img_to_from_flag = new QImage();
-const QImage * const NavigationIndicator::img_gs_flag = new QImage();
+QPixmap * NavigationIndicator::img_ring = NULL;
+QPixmap * NavigationIndicator::img_frame = NULL;
+QPixmap * NavigationIndicator::img_plate = NULL;
+QPixmap * NavigationIndicator::img_to_from_flag = NULL;
+QPixmap * NavigationIndicator::img_gs_flag = NULL;
 const QPoint NavigationIndicator::needle[4] = {
     QPoint(0, -2),
     QPoint(120, -2),

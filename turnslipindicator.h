@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QWidget>
 #include <QMutex>
-#include <QImage>
+#include <QPixmap>
 #include "fgdata.h"
 
 class TurnSlipIndicator : public QWidget, public FGDataConsumer
@@ -24,9 +24,9 @@ private:
 
     static QMutex img_lock;
     static bool loaded;
-    static const QImage * const img_plane;
-    static const QImage * const img_frame;
-    static const QImage * const img_plate;
+    static QPixmap * img_plane;
+    static QPixmap * img_frame;
+    static QPixmap * img_plate;
 };
 
 #endif // TURNSLIPINDICATOR_H

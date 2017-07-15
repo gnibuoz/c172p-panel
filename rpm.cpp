@@ -30,7 +30,7 @@ void RPM::paintEvent(QPaintEvent *)
     painter.translate(QPoint(w / 2, h / 2));
 
     // draw plate and frame
-    painter.drawImage(-w / 2, -h / 2, *img_plate);
+    painter.drawPixmap(-w / 2, -h / 2, *img_plate);
 
     // draw needle
     painter.rotate(rpm_to_angle());
@@ -48,16 +48,13 @@ double RPM::rpm_to_angle()
 
 void RPM::load_img()
 {
-    QImage *p = NULL;
-
     QMutexLocker l(&img_lock);
     if (loaded) {
         return;
     }
 
-    p = const_cast<QImage *>(img_plate);
-    *p = QImage(Config::img_prefix + IMG_RPM_PLATE);
-    if (p->isNull()) {
+    img_plate = new QPixmap(Config::img_prefix + IMG_RPM_PLATE);
+    if (img_plate->isNull()) {
         LOGE("Failed to load rpm plate");
     }
 
@@ -70,4 +67,4 @@ const QPoint RPM::needle[4] = {QPoint(-3, 0),
                                              QPoint(0, -3)};
 QMutex RPM::img_lock;
 bool RPM::loaded = false;
-const QImage * const RPM::img_plate = new QImage();
+QPixmap * RPM::img_plate = NULL;

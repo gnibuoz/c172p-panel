@@ -49,18 +49,18 @@ void AttitudeIndicator::paintEvent(QPaintEvent *)
     painter.save();
     painter.rotate(-ai_roll);
     painter.translate(0, pitch_to_translate());
-    painter.drawImage(-w / 2, -h / 2, *img_horizon2);
+    painter.drawPixmap(-w / 2, -h / 2, *img_horizon2);
     painter.restore();
 
     // draw horizon3
     painter.save();
     painter.rotate(-ai_roll);
-    painter.drawImage(-w / 2, -h / 2, *img_horizon3);
+    painter.drawPixmap(-w / 2, -h / 2, *img_horizon3);
     painter.restore();
 
     // draw plane and frame
-    painter.drawImage(-w / 2, -h / 2, *img_plane);
-    painter.drawImage(-w / 2, -h / 2, *img_frame);
+    painter.drawPixmap(-w / 2, -h / 2, *img_plane);
+    painter.drawPixmap(-w / 2, -h / 2, *img_frame);
 }
 
 void AttitudeIndicator::update_offset(Knob::direcrion d)
@@ -76,34 +76,28 @@ void AttitudeIndicator::update_offset(Knob::direcrion d)
 
 void AttitudeIndicator::load_img()
 {
-    QImage *p = NULL;
-
     QMutexLocker l(&img_lock);
     if (loaded) {
         return;
     }
 
-    p = const_cast<QImage *>(img_horizon2);
-    *p = QImage(Config::img_prefix + IMG_AI_HORIZON2);
-    if (p->isNull()) {
+    img_horizon2 = new QPixmap(Config::img_prefix + IMG_AI_HORIZON2);
+    if (img_horizon2->isNull()) {
         LOGE("Failed to load ai h2");
     }
 
-    p = const_cast<QImage *>(img_horizon3);
-    *p = QImage(Config::img_prefix + IMG_AI_HORIZON3);
-    if (p->isNull()) {
+    img_horizon3 = new QPixmap(Config::img_prefix + IMG_AI_HORIZON3);
+    if (img_horizon3->isNull()) {
         LOGE("Failed to load ai h3");
     }
 
-    p = const_cast<QImage *>(img_frame);
-    *p = QImage(Config::img_prefix + IMG_AI_FRAME);
-    if (p->isNull()) {
+    img_frame = new QPixmap(Config::img_prefix + IMG_AI_FRAME);
+    if (img_frame->isNull()) {
         LOGE("Failed to load ai frame");
     }
 
-    p = const_cast<QImage *>(img_plane);
-    *p = QImage(Config::img_prefix + IMG_AI_PLANE);
-    if (p->isNull()) {
+    img_plane = new QPixmap(Config::img_prefix + IMG_AI_PLANE);
+    if (img_plane->isNull()) {
         LOGE("Failed to load ai plane");
     }
 
@@ -112,7 +106,7 @@ void AttitudeIndicator::load_img()
 
 QMutex AttitudeIndicator::img_lock;
 bool AttitudeIndicator::loaded = false;
-const QImage * const AttitudeIndicator::img_horizon2 = new QImage();
-const QImage * const AttitudeIndicator::img_horizon3 = new QImage();
-const QImage * const AttitudeIndicator::img_plane = new QImage();
-const QImage * const AttitudeIndicator::img_frame = new QImage();
+QPixmap * AttitudeIndicator::img_horizon2 = NULL;
+QPixmap * AttitudeIndicator::img_horizon3 = NULL;
+QPixmap * AttitudeIndicator::img_plane = NULL;
+QPixmap * AttitudeIndicator::img_frame = NULL;

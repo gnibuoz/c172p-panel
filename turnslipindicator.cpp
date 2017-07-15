@@ -52,16 +52,16 @@ void TurnSlipIndicator::paintEvent(QPaintEvent *)
     painter.drawEllipse(QPoint(cx, cy), 15, 15);
 
     // draw plate
-    painter.drawImage(-w / 2, -h / 2, *img_plate);
+    painter.drawPixmap(-w / 2, -h / 2, *img_plate);
 
     // draw plane
     painter.save();
     painter.rotate(turn_to_angle());
-    painter.drawImage(-w / 2, -38, *img_plane);
+    painter.drawPixmap(-w / 2, -38, *img_plane);
     painter.restore();
 
     // draw frame
-    painter.drawImage(-w / 2, -h / 2, *img_frame);
+    painter.drawPixmap(-w / 2, -h / 2, *img_frame);
 }
 
 double TurnSlipIndicator::turn_to_angle()
@@ -71,28 +71,23 @@ double TurnSlipIndicator::turn_to_angle()
 
 void TurnSlipIndicator::load_img()
 {
-    QImage *p = NULL;
-
     QMutexLocker l(&img_lock);
     if (loaded) {
         return;
     }
 
-    p = const_cast<QImage *>(img_frame);
-    *p = QImage(Config::img_prefix + IMG_TSI_FRAME);
-    if (p->isNull()) {
+    img_frame = new QPixmap(Config::img_prefix + IMG_TSI_FRAME);
+    if (img_frame->isNull()) {
         LOGE("Failed to load tsi frame");
     }
 
-    p = const_cast<QImage *>(img_plane);
-    *p = QImage(Config::img_prefix + IMG_TSI_PLANE);
-    if (p->isNull()) {
+    img_plane = new QPixmap(Config::img_prefix + IMG_TSI_PLANE);
+    if (img_plane->isNull()) {
         LOGE("Failed to load tsi plane");
     }
 
-    p = const_cast<QImage *>(img_plate);
-    *p = QImage(Config::img_prefix + IMG_TSI_PLATE);
-    if (p->isNull()) {
+    img_plate = new QPixmap(Config::img_prefix + IMG_TSI_PLATE);
+    if (img_plate->isNull()) {
         LOGE("Failed to load tsi plate");
     }
 
@@ -101,6 +96,6 @@ void TurnSlipIndicator::load_img()
 
 QMutex TurnSlipIndicator::img_lock;
 bool TurnSlipIndicator::loaded = false;
-const QImage * const TurnSlipIndicator::img_plane = new QImage();
-const QImage * const TurnSlipIndicator::img_frame = new QImage();
-const QImage * const TurnSlipIndicator::img_plate = new QImage();
+QPixmap * TurnSlipIndicator::img_plane = NULL;
+QPixmap * TurnSlipIndicator::img_frame = NULL;
+QPixmap * TurnSlipIndicator::img_plate = NULL;
