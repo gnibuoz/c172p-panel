@@ -96,7 +96,7 @@ QPixmap * AirSpeedIndicator::img_frame = NULL;
 //
 const double AirSpeedIndicator::angle_scale_map[20][2] = {
     {  0,   1}, // 0-9
-    {  2,   5}, // 10-10
+    {  2,   5}, // 10-19
     {  6,  14}, // 20-29
     { 15,  39}, // 30-39
     { 40,  65}, // 40-49

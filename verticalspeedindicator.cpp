@@ -50,7 +50,6 @@ double VerticalSpeedIndicator::vs_to_angle()
 
 void VerticalSpeedIndicator::load_img()
 {
-
     QMutexLocker l(&img_lock);
     if (loaded) {
         return;
