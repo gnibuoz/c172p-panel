@@ -51,6 +51,8 @@ extern const char * const out_data_names[NUM_OF_NAMES + 1];
 #define FGDATA_DME_MILES_DISPLAY	"dme-miles-display"
 #define FGDATA_DME_MIN_KTS_DISPLAY	"dme-min-kts-display"
 #define FGDATA_DME_SOURCE	"dme-source"
+#define FGDATA_CLOCK_LOCAL_SHORT	"clock-local-short"
+#define FGDATA_CLOCK_INDICATED	"clock-indicated"
 
 #endif // DATANAME_H
 

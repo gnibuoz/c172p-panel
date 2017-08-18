@@ -377,6 +377,18 @@
 				<format>dme-source=%s</format>
 				<node>/instrumentation/dme/frequencies/source</node>
 			</chunk>
+			<chunk>
+				<name>clock-local-short</name>
+				<type>string</type>
+				<format>clock-local-short=%s</format>
+				<node>/instrumentation/clock/local-short-string</node>
+			</chunk>
+			<chunk>
+				<name>clock-indicated</name>
+				<type>string</type>
+				<format>clock-indicated=%s</format>
+				<node>/instrumentation/clock/indicated-string</node>
+			</chunk>
 		</output>
 	</generic>
 </PropertyList>

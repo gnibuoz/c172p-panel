@@ -33,4 +33,3 @@ const char * const out_data_names[NUM_OF_NAMES + 1] = {
 	"dme-source",
 	NULL
 };
-

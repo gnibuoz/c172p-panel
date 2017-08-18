@@ -65,7 +65,6 @@ out_names=`grep '<name>' $2 | sed -r -e 's/<[^<]*>//g' -e 's/\s//g' -e '/^1.*$/d
 	done
 	echo -e "\tNULL"
 	echo '};'
-	echo
 } > `dirname $1`/../datanames.cpp
 
 echo 'File generated!'

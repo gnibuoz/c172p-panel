@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     rpm.cpp \
     knob.cpp \
     radio.cpp \
-    dme.cpp
+    dme.cpp \
+    clock.cpp
 
 HEADERS  += mainwindow.h \
     attitudeindicator.h \
@@ -45,7 +46,8 @@ HEADERS  += mainwindow.h \
     rpm.h \
     knob.h \
     radio.h \
-    dme.h
+    dme.h \
+    clock.h
 
 FORMS    += mainwindow.ui
 

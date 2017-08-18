@@ -160,6 +160,16 @@
      </rect>
     </property>
    </widget>
+   <widget class="Clock" name="clock" native="true">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>600</y>
+      <width>150</width>
+      <height>60</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
@@ -222,6 +232,12 @@
    <class>DME</class>
    <extends>QWidget</extends>
    <header>dme.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Clock</class>
+   <extends>QWidget</extends>
+   <header>clock.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

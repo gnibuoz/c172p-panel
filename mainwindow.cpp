@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->radio_n1->set_fg_data_source_in(&fg_data_in);
     ui->radio_n2->set_fg_data_source_in(&fg_data_in);
     ui->dme->set_fg_data_source_in(&fg_data_in);
+    ui->clock->set_fg_data_source_in(&fg_data_in);
 
     ui->ai->set_fg_data_source_out(&fg_data_out);
     ui->alt->set_fg_data_source_out(&fg_data_out);
